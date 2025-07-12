@@ -52,8 +52,8 @@ class Paddle:
 class Ball:
     def __init__(self):
         self.rect = pygame.Rect(WIDTH // 2, HEIGHT // 2, BALL_RADIUS * 2, BALL_RADIUS * 2)
-        self.dx = 4 * random.choice([-1, 1])
-        self.dy = -4
+        self.dx = 2 * random.choice([-1, 1])
+        self.dy = -2
 
     def update(self, paddle, blocks):
         self.rect.x += self.dx
