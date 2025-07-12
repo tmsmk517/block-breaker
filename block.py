@@ -52,8 +52,8 @@ class Paddle:
 class Ball:
     def __init__(self):
         self.rect = pygame.Rect(WIDTH // 2, HEIGHT // 2, BALL_RADIUS * 2, BALL_RADIUS * 2)
-        self.dx = 2 * random.choice([-1, 1])
-        self.dy = -2
+        self.dx = 3 * random.choice([-1, 1])
+        self.dy = -3
 
     def update(self, paddle, blocks):
         self.rect.x += self.dx
@@ -168,18 +168,20 @@ class Game:
 
     def update_game(self):
         self.paddle.move()
-        score_gain = self.ball.update(self.paddle, self.blocks)
-
+        # ボールを更新して得点加算
         score_gain = self.ball.update(self.paddle, self.blocks)
         self.score += score_gain
 
+        # ボールが画面下に落ちたらリセット＆ライフ減少
         if self.ball.rect.bottom >= HEIGHT:
             self.lives -= 1
             self.ball.reset()
 
+        # ライフが尽きたらゲームオーバー
         if self.lives <= 0:
             self.state = "gameover"
 
+        # ブロックが全て消えたらクリア
         if not self.blocks:
             self.state = "clear"
 
@@ -267,6 +269,12 @@ class Slider:
         pygame.draw.circle(screen, RED, self.get_knob_rect().center, self.knob_radius)
         value_text = self.font.render(f"Sensivity: {self.value:.2f}", True, WHITE)
         screen.blit(value_text, (self.rect.left, self.rect.top - 30))
+
+
+# --- 実行 ---
+if __name__ == "__main__":
+    game = Game()
+    game.run().rect.left, self.rect.top - 30
 
 
 # --- 実行 ---
